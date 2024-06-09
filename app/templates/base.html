@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="/static/matcha.css" />
+</head>
+
+<body class="layout-simple">
+  <header >
+    <nav>
+      <menu>
+      <li><a href="{{ url_for('main.index') }}">Accueil</a></li>
+      <li><a href="{{ url_for('main.forms') }}">Télécharger les formulaires</a></li>
+      <li><a href="{{ url_for('auth.login') }}">Connexion</a></li>
+      </menu>
+    </nav>
+  </header>
+  <main >
+      {% block content %}{% endblock %}
+  </main>
+  <footer>
+    <nav>
+      <menu>
+        <li><p>For Support Contact:<br><a href="mailto:fda@agriculture.gov.ma">fda@agriculture.gov.ma</a></p>
+        </li>
+        <li>Author: Safae
+        </li>
+      </menu>
+    </nav>
+  </footer>
+</body>
+
+</html>

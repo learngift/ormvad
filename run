@@ -1,0 +1,13 @@
+export FLASK_APP=app
+
+if (($# == 0)) ; then
+  # if [[ $(pwd) == */development/ormvad ]] ; then
+  flask --debug run --host=$(hostname) --port 6060
+  # else
+  # gunicorn -w 4 -b host:port -t 60 --keep-alive 60 "app:create_app()"
+  # fi
+else
+  flask "$@"
+fi
+# To create db : rm db.sqlite && ./run init-db
+# To dump db : ./run dump-db

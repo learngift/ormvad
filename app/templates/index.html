@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Guichet unique ORMVAD
+{% endblock %}
+
+{% block content %}
+  <section >
+    <img src="/static/logo.jpeg">
+    <h1 style="text-align:center;margin: 20px;">Bienvenue au Guichet unique ORMVAD</h1>
+    <p>Bienvenue sur la plateforme de digitalisation des processus d'octroi
+      des aides financières par l’État aux projets agricoles.</p>
+    <p>Vous pouvez <a href="{{ url_for('main.forms') }}">télécharger les formulaires papier</a>
+      ou <a href="{{ url_for('auth.login') }}">vous connecter</a> pour soumettre vos demandes en ligne.</p>
+  </section>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Guichet unique ORMVAD login
+{% endblock %}
+
+{% block content %}
+<section >
+  <img src="/static/logo.jpeg" class="logo">
+  <h1 style="text-align:center;margin: 20px;">Login</h1>
+  <form method="post" action="{{ url_for('auth.login_post') }}" style="max-width: 400px;">
+    <label>
+      Username or Email:
+      <input type="text" id="login" name="login" required>
+    </label>
+    <label>
+      Password:
+      <input id="password" name="password" required>
+    </label>
+    <label for="remember">
+        <input type="checkbox" id="remember" name="remember">
+        Remember Me
+    </label>
+    <button type="submit" >Login</button>
+  </form>
+</section>
+{% endblock %}
