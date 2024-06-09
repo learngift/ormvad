@@ -16,7 +16,7 @@ from collections import defaultdict
 # boilerplate
 def get_db():
     if 'db' not in g:
-        print(f"trying to open {current_app.config['DATABASE']}")
+        # print(f"trying to open {current_app.config['DATABASE']}")
         g.db = sqlite3.connect(
             current_app.config['DATABASE'],
             detect_types=sqlite3.PARSE_DECLTYPES
@@ -42,6 +42,24 @@ def query_db(query, args=(), one=False):
 
 # #############################################################
 # db services
+def update_password(id, password):
+    if '@' in id:
+        cursor = get_db().execute('UPDATE user SET password = ? WHERE email = ?', [password, id ])
+    else:
+        cursor = get_db().execute('UPDATE agent SET password = ? WHERE name = ?', [password, id])
+    get_db().commit()
+    return cursor.rowcount
+
+def update_user(id, first_name, last_name, cin, address, phone):
+    get_db().execute('UPDATE user SET name = ?, surname = ?, cin = ?, address = ?, phone = ? WHERE email = ?', [first_name, last_name, cin, address, phone, id])
+    get_db().commit()
+
+def update_agent(id, role):
+    get_db().execute('UPDATE agent SET role = ? WHERE name = ?', [role, id])
+    get_db().commit()
+
+
+
 
 # #############################################################
 # command line utilities

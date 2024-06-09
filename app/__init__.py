@@ -43,7 +43,7 @@ def create_app():
 
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
-    login_manager.login_message = 'Please log in using ldap to access this page'
+    login_manager.login_message = 'Please log in to access this page'
     login_manager.init_app(app)
 
     from .models import User, Agent
@@ -53,11 +53,11 @@ def create_app():
         if '@' in user_id:
             user_row = query_db('SELECT * FROM user WHERE email = ?', [user_id], one=True)
             if user_row:
-                return User(user_row['username'], agent_row['password'])
+                return User(user_id, user_row['password'])
         else:
             agent_row = query_db('SELECT * FROM agent WHERE name = ?', [user_id], one=True)
             if agent_row:
-                return Agent(agent_row['name'], agent_row['password'], agent_row['role'])
+                return Agent(user_id, agent_row['password'], agent_row['role'])
         return None
 
     # blueprint for auth routes in our app

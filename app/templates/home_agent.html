@@ -13,6 +13,7 @@ Guichet unique ORMVAD HOME
     <table>
       <thead>
         <tr>
+          <th>Demandeur</th>
           <th>Date de demande</th>
           <th>État de la demande</th>
           <th>Désignation</th>
@@ -21,6 +22,7 @@ Guichet unique ORMVAD HOME
       <tbody>
           {% for demande in demandes %}
           <tr>
+              <td>{{ demande.email }}</td>
               <td>{{ demande.date_demande }}</td>
               <td>{{ demande.etat }}</td>
               <td><a href="{{ url_for('main.edit_request', demande_id=demande.id) }}">{{ demande.designation }}</a></td>

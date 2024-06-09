@@ -6,27 +6,73 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="/static/matcha.css" />
+    <style >
+        .profile-icon:hover + .tooltip {
+          display: block;
+        }
+        .tooltip {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: #fff;
+            padding: 5px;
+            border-radius: 5px;
+            white-space: nowrap;
+            font-size: 14px;
+        }
+        .flash-message {
+            background-color: #ffdddd;
+            color: #d8000c;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #d8000c;
+            border-radius: 5px;
+            text-align: center;
+        }
+    </style>
 </head>
 
 <body class="layout-simple">
   <header >
-    <nav>
-      <menu>
-      <li><a href="{{ url_for('main.index') }}">Accueil</a></li>
-      <li><a href="{{ url_for('main.forms') }}">Télécharger les formulaires</a></li>
-      <li><a href="{{ url_for('auth.login') }}">Connexion</a></li>
+    <nav style="width: 100%;">
+      <menu style="width: 100%;">
+        <li><a href="{{ url_for('main.index') }}">Accueil</a></li>
+        <li><a href="{{ url_for('main.forms') }}">Télécharger les formulaires</a></li>
+        <li>
+        {% if current_user.is_authenticated %}
+          <a href="{{ url_for('auth.logout') }}">Déconnecter</a>
+        {% else %}
+          <a href="{{ url_for('auth.login') }}">Connexion</a>
+        {% endif %}
+        </li>
+        {% if current_user.is_authenticated %}
+        <li><span class="profile-icon">
+          <a class="profile-icon" href="{{ url_for('auth.profile') }}">👤</a>
+          <span class="tooltip" style="text-align: center;">{{current_user.get_id()}}<br>Accéder à mon profil</span></span>
+        </li>
+        {% endif %}
       </menu>
     </nav>
   </header>
-  <main >
-      {% block content %}{% endblock %}
+  <main style="min-height: 70vh;">
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for message in messages %}
+          <div class="flash-message">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
   </main>
   <footer>
     <nav>
       <menu>
-        <li><p>For Support Contact:<br><a href="mailto:fda@agriculture.gov.ma">fda@agriculture.gov.ma</a></p>
-        </li>
-        <li>Author: Safae
+        <li>Auteur: Safae</li>
+        <li>
+          <p>Contact support:<br><a href="mailto:fda@agriculture.gov.ma">fda@agriculture.gov.ma</a></p>
         </li>
       </menu>
     </nav>

@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Edition du profil utilisateur
+{% endblock %}
+
+{% block content %}
+<section >
+  <img src="/static/logo.jpeg">
+  <h1 style="text-align:center;margin: 20px;">Edition du profil</h1>
+  <form method="post" action="{{ url_for('auth.update_profile') }}" style="max-width: 600px; margin: 0 auto;">
+    <fieldset>
+      <legend>Etat civil</legend>
+      <label>
+        Nom:
+        <input type="text" id="last_name" name="last_name" value="{{ last_name }}">
+      </label>
+      <label>
+        Prénom:
+        <input type="text" id="first_name" name="first_name" value="{{ first_name }}">
+      </label>
+      <label>
+        CIN (n° de carte d'identité):
+        <input type="number" id="cin" name="cin" value="{{ cin }}">
+      </label>
+      <label>
+        Adresse de correspondance:
+        <textarea id="address" name="address" rows="5" cols="80">{{ address }}</textarea>
+      </label>
+      <label>
+        Téléphone:
+        <input type="tel" id="phone" name="phone" value="{{ phone }}">
+      </label>
+    </fieldset>
+    <fieldset>
+      <legend>Changement de mot de passe</legend>
+      <label>
+        Ancien mot de passe:
+        <input type="password" id="old_password" name="old_password">
+      </label>
+      <label>
+        Nouveau mot de passe:
+        <input type="password" id="new_password" name="new_password">
+      </label>
+      <label>
+        Confirmez le nouveau mot de passe:
+        <input type="password" id="confirm_password" name="confirm_password">
+      </label>
+    </fieldset>
+    <button type="submit" class="button is-primary">Mettre à jour le profil</button>
+</form>
+</section>
+{% endblock %}

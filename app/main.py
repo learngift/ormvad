@@ -7,7 +7,8 @@ import mimetypes
 import subprocess
 import urllib.parse
 import datetime
-from .db import get_db
+from .db import get_db, query_db
+from .models import User
 
 main = Blueprint('main', __name__)
 
@@ -17,8 +18,10 @@ def inject_len():
 
 @main.route('/')
 def index():
+    if current_user.is_authenticated:
+        return redirect(url_for('main.home'))
+
     return render_template('index.html')
-    # return redirect(url_for('auth.login'))
 
 # temporary for experiments
 @main.route('/tst')
@@ -32,7 +35,25 @@ def favicon():
 @main.route('/home')
 @login_required
 def home():
-    return render_template('home.html')
+    if isinstance(current_user, User):
+        demandes = query_db('SELECT * FROM demande WHERE email = ?', [current_user.get_id()])
+        return render_template('home.html', demandes=demandes)
+    else:
+        demandes = query_db('SELECT * FROM demande')
+        return render_template('home_agent.html', demandes=demandes)
+
+
+# TODO
+@main.route('/create_request')
+@login_required
+def create_request():
+    return redirect(url_for('main.home'))
+
+# TODO
+@main.route('/edit_request/<int:demande_id>')
+@login_required
+def edit_request(demande_id):
+    return redirect(url_for('main.home'))
 
 @main.route('/forms')
 def forms():
