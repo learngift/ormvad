@@ -48,5 +48,5 @@ def form():
 
 @main.route('/thank-you')
 def thank_you():
-    return "Thank you for submitting the form!"
+    return render_template('thank_you.html')
 

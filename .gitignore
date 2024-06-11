@@ -2,3 +2,4 @@
 __pycache__/
 db.sqlite
 app/templates/index2.html
+data/

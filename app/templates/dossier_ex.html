@@ -70,9 +70,13 @@ demande d'examen d'un projet de construction de batiment d'élevage
     </fieldset>
     <button type="submit" class="button default">Mettre à jour le dossier</button>
     <button type="button" class="button danger" onclick="confirmDelete()">Supprimer le dossier</button>
+    <button type="button" class="button success" onclick="confirmEnvoi()">Valider le dossier</button>
 </form>
 <form id="delete-form" method="post" action="{{ url_for('dossier.delete_request', demande_id=d.id) }}" style="display: none;">
   <input type="hidden" name="confirm_delete" value="yes">
+</form>
+<form id="valid-form" method="post" action="{{ url_for('dossier.valid_request', demande_id=d.id) }}" style="display: none;">
+  <input type="hidden" name="confirm_valid" value="yes">
 </form>
 </section>
 <script>
@@ -81,17 +85,32 @@ demande d'examen d'un projet de construction de batiment d'élevage
       document.getElementById('delete-form').submit();
     }
   }
+  function confirmEnvoi() {
+    if (confirm("Êtes-vous sûr de valider ce dossier pour qu'il soit examiné par le guichet unique?")) {
+      document.getElementById('valid-form').submit();
+    }
+  }
 </script>
 {% endblock %}
 {% block aside %}
 <aside>
   <h1>Documents</h1>
-  <form method="post" >
+  <form method="post" action="{{ url_for('dossier.upload_document', demande_id=d.id) }}" enctype="multipart/form-data">
     <label>
       Déposer vos Documents
       <input type="file" style="height: 200px" name="file" required>
     </label>
     <button type="submit">Enregistrer</button>
   </form>
+  <hr>
+  <ul>
+  {% for piece in pieces %}
+  <li><a href="{{ url_for('dossier.afficher_piece', demande_id=d.id, id=piece.id) }}">{{ piece.filename }}</a>
+    <form method="post" action="{{ url_for('dossier.delete_piece', demande_id=d.id, piece_id=piece.id) }}" style="display:inline;">
+      <button type="submit" style="background:none;border:none;color:red;cursor:pointer;font-size:16px;">🗑️</button>
+    </form>
+  </li>
+  {% endfor %}
+  </ul>
 </aside>
 {% endblock %}
