@@ -8,7 +8,6 @@ Guichet unique ORMVAD HOME
   <section >
     <img src="/static/logo.jpeg">
     <h1 style="text-align:center;margin: 20px;">ORMVAD: demandes en ligne</h1>
-    <button onclick="window.location.href='{{ url_for('main.create_request') }}'" type="submit">Créer un nouveau dossier de demande d'examen</button>
     <hr>
     <table>
       <thead>
@@ -25,7 +24,7 @@ Guichet unique ORMVAD HOME
               <td>{{ demande.email }}</td>
               <td>{{ demande.date_demande }}</td>
               <td>{{ demande.etat }}</td>
-              <td><a href="{{ url_for('main.edit_request', demande_id=demande.id) }}">{{ demande.designation }}</a></td>
+              <td><a href="{{ url_for('dossier.edit_request', demande_id=demande.id) }}">{{ demande.designation }}</a></td>
           </tr>
           {% endfor %}
       </tbody>

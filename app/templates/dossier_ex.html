@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% block title %}
+demande d'examen d'un projet de construction de batiment d'élevage
+{% endblock %}
+
+{% block content %}
+<section >
+  <img src="/static/logo.jpeg">
+  <h1 style="text-align:center;margin: 20px;">Edition de la demande d'examen d'un projet de construction de batiment d'élevage</h1>
+  <form method="post" action="{{ url_for('dossier.edit_request', demande_id=d.id) }}" style="max-width: 600px; margin: 0 auto;">
+    <fieldset>
+      <legend>Etat civil</legend>
+      <label>
+        Nom:
+        <input type="text" id="name" name="name" value="{{ d.name | default('') }}">
+      </label>
+      <label>
+        Prénom:
+        <input type="text" id="surname" name="surname" value="{{ d.surname | default('') }}">
+      </label>
+      <label>
+        Raison sociale:
+        <input type="text" id="raison_sociale" name="raison_sociale" value="{{ d.raison_sociale | default('') }}">
+      </label>
+      <label>
+        CIN (n° de carte d'identité):
+        <input type="number" id="cin" name="cin" value="{{ d.cin | default('') }}">
+      </label>
+      <label>
+        Douar:
+        <input type="text" id="douar" name="douar" value="{{ d.douar | default('') }}">
+      </label>
+      <label>
+        Commune rurale:
+        <input type="text" id="commune_rurale" name="commune_rurale" value="{{ d.commune_rurale | default('') }}">
+      </label>
+      <label>
+        Cercle:
+        <input type="text" id="cercle" name="cercle" value="{{ d.cercle | default('') }}">
+      </label>
+      <label>
+        Province:
+        <input type="text" id="province" name="province" value="{{ d.province | default('') }}">
+      </label>
+      <label>
+        Adresse de correspondance:
+        <textarea id="address" name="address" rows="5" cols="80">{{ d.address | default('') }}</textarea>
+      </label>
+      <label>
+        Téléphone:
+        <input type="tel" id="phone" name="phone" value="{{ d.phone | default('') }}">
+      </label>
+    </fieldset>
+
+    <fieldset>
+      <legend>Projet</legend>
+      <label>
+        Objet:
+        <textarea id="objet" name="objet" rows="5" cols="80">{{ d.objet | default('') }}</textarea>
+      </label>
+      <label>
+        Superficie:
+        <input type="text" id="superficie" name="superficie" value="{{ d.superficie | default('') }}">
+      </label>
+      <label>
+        Effectif du cheptel:
+        <input type="text" id="effectif" name="effectif" value="{{ d.effectif | default('') }}">
+      </label>
+    </fieldset>
+    <button type="submit" class="button default">Mettre à jour le dossier</button>
+    <button type="button" class="button danger" onclick="confirmDelete()">Supprimer le dossier</button>
+</form>
+<form id="delete-form" method="post" action="{{ url_for('dossier.delete_request', demande_id=d.id) }}" style="display: none;">
+  <input type="hidden" name="confirm_delete" value="yes">
+</form>
+</section>
+<script>
+  function confirmDelete() {
+    if (confirm("Êtes-vous sûr de vouloir supprimer ce dossier ? Cette action est irréversible.")) {
+      document.getElementById('delete-form').submit();
+    }
+  }
+</script>
+{% endblock %}
+{% block aside %}
+<aside>
+  <h1>Documents</h1>
+  <form method="post" >
+    <label>
+      Déposer vos Documents
+      <input type="file" style="height: 200px" name="file" required>
+    </label>
+    <button type="submit">Enregistrer</button>
+  </form>
+</aside>
+{% endblock %}

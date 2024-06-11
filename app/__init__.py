@@ -68,6 +68,10 @@ def create_app():
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
 
+    # blueprint for parts of app concerning dossiers
+    from .dossier import dossier as dossier_blueprint
+    app.register_blueprint(dossier_blueprint)
+
     # blueprint for admin parts of app
     #from .admin import admin as admin_blueprint
     #app.register_blueprint(admin_blueprint)

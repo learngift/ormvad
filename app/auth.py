@@ -38,7 +38,7 @@ def login_post():
     # if the above check passes, then we know the user has the right credentials
     login_user(user, remember=remember)
     next = request.form.get('next')
-    return redirect(next or url_for('main.home'))
+    return redirect(next or url_for('dossier.home'))
 
 @auth.route('/logout')
 @login_required

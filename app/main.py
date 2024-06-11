@@ -19,7 +19,7 @@ def inject_len():
 @main.route('/')
 def index():
     if current_user.is_authenticated:
-        return redirect(url_for('main.home'))
+        return redirect(url_for('dossier.home'))
 
     return render_template('index.html')
 
@@ -31,29 +31,6 @@ def tst():
 @main.route('/favicon.ico')
 def favicon():
     return send_from_directory('static', 'favicon.ico')
-
-@main.route('/home')
-@login_required
-def home():
-    if isinstance(current_user, User):
-        demandes = query_db('SELECT * FROM demande WHERE email = ?', [current_user.get_id()])
-        return render_template('home.html', demandes=demandes)
-    else:
-        demandes = query_db('SELECT * FROM demande')
-        return render_template('home_agent.html', demandes=demandes)
-
-
-# TODO
-@main.route('/create_request')
-@login_required
-def create_request():
-    return redirect(url_for('main.home'))
-
-# TODO
-@main.route('/edit_request/<int:demande_id>')
-@login_required
-def edit_request(demande_id):
-    return redirect(url_for('main.home'))
 
 @main.route('/forms')
 def forms():
