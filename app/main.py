@@ -36,16 +36,6 @@ def favicon():
 def forms():
     return render_template('forms.html')
 
-@main.route('/form', methods=['GET', 'POST'])
-def form():
-    if request.method == 'POST':
-        # Récupérez les données du formulaire
-        form_data = request.form
-        # Traitez les données du formulaire (par exemple, enregistrez-les dans une base de données)
-        # ...
-        return redirect(url_for('main.thank_you'))
-    return render_template('form.html')
-
 @main.route('/thank-you')
 def thank_you():
     return render_template('thank_you.html')

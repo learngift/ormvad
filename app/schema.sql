@@ -60,7 +60,7 @@ CREATE TABLE histo (
 );
 
 INSERT INTO user (email, password) VALUES
-('e70838@gmail.com', 'e7');
+('agriculteur@example.com', 'e7');
 
 CREATE TABLE agent (
   name TEXT NOT NULL,

@@ -11,15 +11,15 @@ Guichet unique ORMVAD login
   <form method="post" action="{{ url_for('auth.login_post') }}" style="max-width: 400px;">
     <label>
       Username or Email:
-      <input type="text" id="login" name="login" required>
+      <input type="text" name="login" required>
     </label>
     <label>
       Password:
-      <input id="password" name="password" required>
+      <input type="password" name="password" required>
     </label>
     <label for="remember">
-        <input type="checkbox" id="remember" name="remember">
-        Remember Me
+      Remember Me
+      <input type="checkbox" name="remember">
     </label>
     <button type="submit" >Login</button>
   </form>
